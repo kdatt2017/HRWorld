@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hitech World</title>
+
+    <!--<script type='text/javascript' src='Scripts/jquery-1.9.1.js'></script>
+    <script type='text/javascript' src='Scripts/bootstrap.js'></script>-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="../Content/bootstrap-theme.css" />
+    <link rel="stylesheet" href="../Content/bootstrap.css" />
+
+    <style type="text/css">
+        .blackBg {
+            background-color: #000000 !important;
+        }
+
+        .topBackground {
+            width: 100%;
+            padding-left: 1%;
+        }
+
+        .foregroundWhite {
+            color: white;
+        }
+
+        .foregroundAlt {
+            color: #808080;
+        }
+
+        .foregroundBig {
+            font: normal 12px arial, verdana;
+        }
+
+        .foregroundSmall {
+            font: normal 10px arial, verdana;
+        }
+
+        .foregroundVerySmall {
+            font: normal 8px arial, verdana;
+        }
+
+        .bigFont {
+            font: bold 22px arial, verdana;
+            color: blue;
+        }
+
+        .centerAlignment {
+            text-align: center !important;
+        }
+
+        .Spacer {
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+
+        .bottomButton {
+            background-color: navy !important;
+            color: white;
+            padding: 0.50rem !important;
+            text-align: center !important;
+        }
+
+        .benefitsButton {
+            background-color: white;
+            color: blue;
+            border: 1px #808080 solid;
+            font: normal 10px arial, verdana;
+        }
+
+        .activePanel {
+            background-color: red !important;
+        }
+
+        .activePanelHeading {
+            border: 2px solid red !important;
+        }
+
+        .fullWidth {
+            width: 100%;
+            font: normal 10px arial, verdana;
+            text-align: left;
+            font-style: italic;
+        }
+
+        .redFontColor {
+            color: red!important;
+        }
+    </style>
+</head>
+<body>
+    <div class="topBackground blackBg">
+        <span class="foregroundWhite foregroundBig">HRTECH</span><span class="foregroundAlt foregroundBig">W</span><span class="foregroundWhite foregroundBig">ORLD</span>
+        <br />
+        <span class="foregroundWhite foregroundSmall">aMSTERDAM</span>
+        <span class="foregroundAlt foregroundSmall">24-25 OCT, 2017</span>
+    </div>
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li *ngFor="let menu of getMenuItems()" [class.active]="menu == getActiveMenuItem()">
+                        <a href="#">{{menu}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row centerAlignment">
+            <div class="col-lg-12" *ngIf="innerWidth < 750">
+                <div class="col-lg-3">
+                    <a href="#">EARLY BIRD SOLD OUT</a> /
+                </div>
+                <div class="col-lg-3">
+                    <a href="#">SUMMER SAVER TILL AUG, 31</a> /
+                </div>
+                <div class="col-lg-2">
+                    <a href="#">REGULAR</a> /
+                </div>
+                <div class="col-lg-1">
+                    <a href="#">LATE</a> /
+                </div>
+                <div class="col-lg-3">
+                    <a href="#">ONSITE REGISTRATION</a>
+                </div>
+            </div>
+            <div class="col-lg-12" *ngIf="innerWidth >= 750">
+                <a href="#">EARLY BIRD SOLD OUT</a> /
+                <a href="#">SUMMER SAVER TILL AUG, 31</a> /
+                <a href="#">REGULAR</a> /
+                <a href="#">LATE</a> /
+                <a href="#">ONSITE REGISTRATION</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-sm-4 Spacer foregroundVerySmall">
+                </div>
+                <div class="col-sm-4 Spacer foregroundSmall">
+                    This menu item explains that the user needs to book a single ticket. If you would like to book the tickets for a group, then you need to click on the group tickets.
+                    There are two other menu items for investors and the start ups. Also, there is a group of next menu items, which contains details about early bird
+                </div>
+                <div class="col-sm-4 Spacer foregroundVerySmall">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--<div class="col-lg-2">
+            </div>-->
+            <div class="col-lg-3" *ngFor="let item of getMainItems()">
+                <div class="panel panel-default" [class.activePanelHeading]="item.active == true">
+                    <div class="panel-body">
+                        <div class="row centerAlignment redFontColor" [class.hidden]="!(item && item.active ? item.active : false)">
+                            <strong>MOST POPULAR</strong>
+                        </div>
+                        <div class="row centerAlignment" [innerHTML]="item.header">
+                        </div>
+                        <div class="row centerAlignment bigFont">
+                            &euro; {{item.main}}
+                        </div>
+                        <div class="row centerAlignment" [innerHTML]="getFooter(item.footer)">
+                        </div>
+                        <div class="row" [class.hidden]="!(item && item.footer ? item.footer.indexOf('inputText') >= 0 : false)">
+                            <input type="text" value="Type it here and then print Day01/Day02 OR BOTH" class="fullWidth" />
+                        </div>
+                        <div class="row centerAlignment">
+                            <br />
+                        </div>
+                        <div class="row">
+                            <div>
+                                <ul [class.hidden]="benefits != 'Close'">
+                                    <li *ngFor="let bodyItem of item.body">{{bodyItem}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer bottomButton" [class.activePanel]="item.active == true">
+                        Book Now
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-lg-2">
+            </div>-->
+        </div>
+        <div class="row Spacer">
+            <div class="col-sm-12 centerAlignment">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" (click)="clickBenefits()">{{benefits}}</button>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="row Spacer">
+        </div>
+        <div class="row Spacer centerAlignment">
+            OUR TRUSTED PARTNER
+        </div>
+        <div class="row centerAlignment col-lg-12">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2">workday</div>
+            <div class="col-lg-2">workday</div>
+            <div class="col-lg-2">workday</div>
+            <div class="col-lg-2">workday</div>
+            <div class="col-lg-2">workday</div>
+            <div class="col-lg-1"></div>
+        </div>
+        <div class="row Spacer">
+        </div>
+    </div>
+    <div class="blackBg centerAlignment">
+        <span class="foregroundWhite foregroundBig">HRTECH</span><span class="foregroundAlt foregroundBig">W</span><span class="foregroundWhite foregroundBig">ORLD</span><br />
+        <a href="#" class="foregroundWhite foregroundSmall">HOME</a>&nbsp;&nbsp;
+        <a href="#" class="foregroundWhite foregroundSmall">ABOUT</a>&nbsp;&nbsp;
+        <a href="#" class="foregroundWhite foregroundSmall">TEAM</a>&nbsp;&nbsp;
+        <a href="#" class="foregroundWhite foregroundSmall">JOBS</a>&nbsp;&nbsp;
+        <a href="#" class="foregroundWhite foregroundSmall">CONTACT</a><br />
+        <span class="foregroundWhite foregroundVerySmall">HW|Terms & Conditions|Copright @2015. All Rights Reserved</span>
+    </div>
+</body>
+</html>
